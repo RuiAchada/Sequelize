@@ -1,2 +1,3 @@
-# Sequelize
-Testing Sequelize, an ORM for Node.js
+# Description
+
+Testing Sequelize, an ORM for Node.js, using Postgres and Express.

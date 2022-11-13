@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
+
+    toJSON() {
+      return { ...this.get(), id: undefined } // get the fields of the object and override the ID
+    }
   }
   User.init(
     {

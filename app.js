@@ -19,6 +19,6 @@ app.post("/users", async (req, res) => {
 
 app.listen({ port: 5000 }, async () => {
   console.log("Server running on http://localhost:5000")
-  await sequelize.sync({ alter: true }) // sync looks at our models and create database tables.
-  console.log("Database synced!")
+  await sequelize.authenticate() // authenticate to the DB. Now we'll run the migrations separately to create the tables
+  console.log("Database connected!")
 })
