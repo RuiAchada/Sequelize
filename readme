@@ -1,0 +1,17 @@
+to fix sequelize init error:
+
+sequelize : File ...\AppData\Roaming\npm\sequelize.ps1
+cannot be loaded because running scripts is disabled on this system.  
+For more information, see about_Execution_Policies at
+https:/go.microsoft.com/fwlink/?LinkID=135170.
+At line:1 char:1
+
+- sequelize init
+- ```
+    + CategoryInfo          : SecurityError: (:) [], PSSecurityExcep
+   tion
+    + FullyQualifiedErrorId : UnauthorizedAccess
+
+  Run powershell as admin and run:
+  Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+  ```
