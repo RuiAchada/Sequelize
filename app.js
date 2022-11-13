@@ -41,6 +41,41 @@ app.get("/users/:uuid", async (req, res) => {
   }
 })
 
+app.delete("/users/:uuid", async (req, res) => {
+  const uuid = req.params.uuid
+  try {
+    const user = await User.findOne({
+      where: { uuid: uuid }
+    })
+    await user.destroy()
+    return res.json({ message: "User deleted!" })
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json({ error: "Something went wrong" })
+  }
+})
+
+app.put("/users/:uuid", async (req, res) => {
+  const uuid = req.params.uuid
+  const { name, email, role } = req.body
+  try {
+    const user = await User.findOne({
+      where: { uuid: uuid }
+    })
+
+    user.name = name
+    user.email = email
+    user.role = role
+
+    await user.save()
+
+    return res.json(user)
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json({ error: "Something went wrong" })
+  }
+})
+
 app.post("/posts", async (req, res) => {
   const { userUuid, body } = req.body // userUuid should be the user logged in / making the request
   try {
