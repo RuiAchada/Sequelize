@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // associate gets all the models so we can destructure from it
       // define association here
       // by default, if we don't pass the FK to look for, it will look for "modelPK" (e.g. "UserID")
-      this.belongsTo(User, { foreignKey: "userId" })
+      this.belongsTo(User, { foreignKey: "userId", as: "user" })
     }
 
     toJSON() {

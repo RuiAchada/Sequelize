@@ -52,6 +52,17 @@ app.post("/posts", async (req, res) => {
   }
 })
 
+app.get("/posts", async (req, res) => {
+  try {
+    //const posts = await Post.findAll({ include: [{ model: User, as: "user" }] })
+    const posts = await Post.findAll({ include: "user" }) // includes the user of the post
+    return res.json(posts)
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json(err)
+  }
+})
+
 app.listen({ port: 5000 }, async () => {
   console.log("Server running on http://localhost:5000")
   await sequelize.authenticate() // authenticate to the DB. Now we'll run the migrations separately to create the tables
