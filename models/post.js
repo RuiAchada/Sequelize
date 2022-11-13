@@ -1,47 +1,39 @@
 "use strict"
 const { Model } = require("sequelize")
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Post extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ Post }) {
+    static associate({ User }) {
+      // associate gets all the models so we can destructure from it
       // define association here
-      this.hasMany(Post, { foreignKey: "userId" })
+      // by default, if we don't pass the FK to look for, it will look for "modelPK" (e.g. "UserID")
+      this.belongsTo(User, { foreignKey: "userId" })
     }
 
     toJSON() {
-      return { ...this.get(), id: undefined } // get the fields of the object and override the ID
+      return { ...this.get(), id: undefined, userId: undefined } // get the fields of the object and override the ID
     }
   }
-  User.init(
+  Post.init(
     {
-      // fields
       uuid: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4
       },
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      role: {
+      body: {
         type: DataTypes.STRING,
         allowNull: false
       }
     },
     {
-      // options
       sequelize,
-      tableName: "users",
-      modelName: "User"
+      tableName: "posts",
+      modelName: "Post"
     }
   )
-  return User
+  return Post
 }
