@@ -31,7 +31,8 @@ app.get("/users/:uuid", async (req, res) => {
   const uuid = req.params.uuid
   try {
     const user = await User.findOne({
-      where: { uuid: uuid }
+      where: { uuid: uuid },
+      include: "posts"
     })
     return res.json(user)
   } catch (err) {
